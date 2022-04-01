@@ -2,12 +2,9 @@ package client;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
-public class CalculatorForm {
+public class CalculatorForm implements FocusListener {
     private JButton a1Button;
     private JPanel panel1;
     private JButton a2Button;
@@ -29,25 +26,49 @@ public class CalculatorForm {
     private JTextField textField3;
     private JTextField textField4;
     private JLabel answerLabel;
-    private JButton buttonEqual;
+    private JButton a00Button;
+    private JButton buttonPoint;
+    private JButton buttonDelete;
+    private JButton buttonC;
     private JTextField focusedTextBox;
     CalculatorForm(){
         label.setFont(new Font("Serif", Font.BOLD, 20));
         label.setForeground(Color.BLACK);
         textField1.requestFocus();
         focusedTextBox=textField1;
-        a1Button.addActionListener(e -> selectionButtonPressed(1));
-        a2Button.addActionListener(e -> selectionButtonPressed(2));
-        a3Button.addActionListener(e -> selectionButtonPressed(3));
-        a4Button.addActionListener(e -> selectionButtonPressed(4));
-        a5Button.addActionListener(e -> selectionButtonPressed(5));
-        a6Button.addActionListener(e -> selectionButtonPressed(6));
-        a7Button.addActionListener(e -> selectionButtonPressed(7));
-        a8Button.addActionListener(e -> selectionButtonPressed(8));
-        a9Button.addActionListener(e -> selectionButtonPressed(9));
-        a0Button.addActionListener(e -> selectionButtonPressed(0));
+        textField1.addFocusListener(this);
+        textField2.addFocusListener(this);
+        textField3.addFocusListener(this);
+        textField4.addFocusListener(this);
+        a1Button.addActionListener(e -> selectionButtonPressed("1"));
+        a2Button.addActionListener(e -> selectionButtonPressed("2"));
+        a3Button.addActionListener(e -> selectionButtonPressed("3"));
+        a4Button.addActionListener(e -> selectionButtonPressed("4"));
+        a5Button.addActionListener(e -> selectionButtonPressed("5"));
+        a6Button.addActionListener(e -> selectionButtonPressed("6"));
+        a7Button.addActionListener(e -> selectionButtonPressed("7"));
+        a8Button.addActionListener(e -> selectionButtonPressed("8"));
+        a9Button.addActionListener(e -> selectionButtonPressed("9"));
+        a0Button.addActionListener(e -> selectionButtonPressed("0"));
+        a00Button.addActionListener(e -> selectionButtonPressed("00"));
+        buttonPoint.addActionListener(e -> selectionButtonPressed("."));
+        buttonC.addActionListener(e -> CButtonPressed());
+        buttonDelete.addActionListener(e -> DeleteButtonPressed());
+
     }
-    public void selectionButtonPressed(int num) {
+
+    public void DeleteButtonPressed() {
+        if (focusedTextBox.getText().length()>0) {
+            focusedTextBox.setText(focusedTextBox.getText().substring(0,focusedTextBox.getText().length()-1));
+        }
+    }
+    public void CButtonPressed() {
+        textField1.setText("");
+        textField2.setText("");
+        textField3.setText("");
+        textField4.setText("");
+    }
+    public void selectionButtonPressed(String num) {
         focusedTextBox.setText(focusedTextBox.getText()+num);
     }
     public static void main(String[] args) {
@@ -57,5 +78,19 @@ public class CalculatorForm {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(500,400));
         frame.setVisible(true);
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+        Object obj = e.getSource();
+        if(obj instanceof JTextField)
+        {
+            focusedTextBox=(JTextField) obj;
+        }
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+
     }
 }
