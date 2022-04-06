@@ -1,5 +1,3 @@
-package client;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -19,7 +17,7 @@ public class CalculatorForm implements FocusListener {
     private JLabel label;
     private JButton buttonPlus;
     private JButton buttonMinus;
-    private JButton buttonMiltiply;
+    private JButton buttonMultiply;
     private JButton buttonDivide;
     private JTextField textField1;
     private JTextField textField2;
@@ -51,6 +49,10 @@ public class CalculatorForm implements FocusListener {
         a9Button.addActionListener(e -> selectionButtonPressed("9"));
         a0Button.addActionListener(e -> selectionButtonPressed("0"));
         a00Button.addActionListener(e -> selectionButtonPressed("00"));
+        buttonPlus.addActionListener(e -> operationButtonPressed('+'));
+        buttonMinus.addActionListener(e -> operationButtonPressed('-'));
+        buttonMultiply.addActionListener(e -> operationButtonPressed('*'));
+        buttonDivide.addActionListener(e -> operationButtonPressed('/'));
         buttonPoint.addActionListener(e -> selectionButtonPressed("."));
         buttonC.addActionListener(e -> CButtonPressed());
         buttonDelete.addActionListener(e -> DeleteButtonPressed());
@@ -71,6 +73,11 @@ public class CalculatorForm implements FocusListener {
     public void selectionButtonPressed(String num) {
         focusedTextBox.setText(focusedTextBox.getText()+num);
     }
+    public void operationButtonPressed(char sign)
+    {
+        Client client = new Client(Integer.parseInt(textField1.getText()),Integer.parseInt(textField3.getText()),Integer.parseInt(textField2.getText()),Integer.parseInt(textField4.getText()),sign);
+        answerLabel.setText(client.Calculate());
+    }
     public static void main(String[] args) {
         JFrame frame=new JFrame("Calculator");
         frame.setContentPane(new CalculatorForm().panel1);
@@ -79,6 +86,8 @@ public class CalculatorForm implements FocusListener {
         frame.setSize(new Dimension(500,400));
         frame.setVisible(true);
     }
+
+
 
     @Override
     public void focusGained(FocusEvent e) {

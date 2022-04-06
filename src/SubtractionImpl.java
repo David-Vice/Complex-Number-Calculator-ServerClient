@@ -1,6 +1,3 @@
-
-import java.io.Serializable;
-
 public class SubtractionImpl implements Subtraction {
    public ComplexNumber Subtract(ComplexNumber cn1, ComplexNumber cn2) 
    {

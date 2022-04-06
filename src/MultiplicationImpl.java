@@ -1,6 +1,3 @@
-
-import java.io.Serializable;
-
 public class MultiplicationImpl implements Multiplication {
    public ComplexNumber Multiply(ComplexNumber cn1, ComplexNumber cn2) 
    {

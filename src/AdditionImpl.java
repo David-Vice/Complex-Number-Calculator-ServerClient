@@ -1,6 +1,3 @@
-
-import java.io.Serializable;
-
 public class AdditionImpl implements Addition {
    public ComplexNumber Add(ComplexNumber cn1, ComplexNumber cn2) 
    {

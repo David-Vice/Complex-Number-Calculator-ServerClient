@@ -1,4 +1,3 @@
-
 import java.io.Serializable;
 
 public class ComplexNumber implements Serializable {
@@ -12,10 +11,10 @@ public class ComplexNumber implements Serializable {
    
    public ComplexNumber() {
    }
-   
-   public void Show()
+
+   public String GetAnswer()
    {
-	   System.out.println("("+real+")+("+imaginary+"i)");
+      return "("+real+")+("+imaginary+"i)";
    }
 
    public float getReal() {

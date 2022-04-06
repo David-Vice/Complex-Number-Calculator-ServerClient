@@ -1,6 +1,3 @@
-
-import java.io.Serializable;
-
 public class DivisionImpl implements Division {
    public ComplexNumber Divide(ComplexNumber cn1, ComplexNumber cn2) 
    {
