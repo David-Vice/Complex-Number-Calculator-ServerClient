@@ -4,9 +4,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 public class Client {
-	int r1, i1, r2, i2;
+	float r1, i1, r2, i2;
 	char sign;
-	public Client(int _r1, int _i1, int _r2, int _i2, char _sign)
+	public Client(float _r1, float _i1, float _r2, float _i2, char _sign)
 	{
 		r1 = _r1;
 		i1 = _i1;
@@ -35,13 +35,22 @@ public class Client {
 			  Multiplication obj = (Multiplication) registry.lookup("ComplexMult");
 			  return (obj.Multiply(num1, num2)).GetAnswer();
 		  } else if (sign == '/') {
-			  Division obj = (Division) registry.lookup("ComplexDiv");
-			  return (obj.Divide(num1, num2)).GetAnswer();
+			  if(DivisionByZero(r2, i2))
+			  {
+				  Division obj = (Division) registry.lookup("ComplexDiv");
+				  return (obj.Divide(num1, num2)).GetAnswer();
+			  }
+			  else
+				  return "Division by zero!";
 		  }
 	  }
 	  catch (Exception e) {
 		  System.out.println("Client exception: " + e);
 	  }
 	  return "Empty";
+  }
+  public boolean DivisionByZero(float r2, float i2)
+  {
+	  return r2 != 0 || i2 != 0;
   }
 }

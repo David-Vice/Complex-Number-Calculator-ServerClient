@@ -75,19 +75,30 @@ public class CalculatorForm implements FocusListener {
     }
     public void operationButtonPressed(char sign)
     {
-        Client client = new Client(Integer.parseInt(textField1.getText()),Integer.parseInt(textField3.getText()),Integer.parseInt(textField2.getText()),Integer.parseInt(textField4.getText()),sign);
-        answerLabel.setText(client.Calculate());
+        if(EmptyTextBox(textField1,textField2,textField3,textField4))
+        {
+            try
+            {
+                Client client = new Client(Float.parseFloat(textField1.getText()),Float.parseFloat(textField3.getText()),Float.parseFloat(textField2.getText()),Float.parseFloat(textField4.getText()),sign);
+                answerLabel.setText(client.Calculate());
+            }
+            catch (Exception e)
+            {
+                answerLabel.setText("Please, enter the right values!");
+            }
+        }
+        else
+        {
+            answerLabel.setText("Please, fill all fields before choosing operation!");
+        }
     }
     public static void main(String[] args) {
         JFrame frame=new JFrame("Calculator");
         frame.setContentPane(new CalculatorForm().panel1);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(500,400));
         frame.setVisible(true);
     }
-
-
 
     @Override
     public void focusGained(FocusEvent e) {
@@ -101,5 +112,10 @@ public class CalculatorForm implements FocusListener {
     @Override
     public void focusLost(FocusEvent e) {
 
+    }
+
+    public boolean EmptyTextBox(JTextField f1, JTextField f2, JTextField f3, JTextField f4)
+    {
+        return !f1.getText().isEmpty() && !f2.getText().isEmpty() && !f3.getText().isEmpty() && !f4.getText().isEmpty();
     }
 }
